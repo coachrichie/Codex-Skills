@@ -1,0 +1,11 @@
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.fit
+*.FIT
+*.pdf
+.env
+.env.*
+.DS_Store
+Thumbs.db
+skills/garmin-connect-iq/references/api-docs/

@@ -1,0 +1,4 @@
+interface:
+  display_name: Hockey Evidence
+  short_description: Evidence-based hockey wearable research and app auditing
+  default_prompt: Use $hockey-evidence to review evidence, audit Garmin Hockey app claims, or design a traceable data algorithm.
