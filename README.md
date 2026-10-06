@@ -4,10 +4,24 @@ Reusable Codex skills for Garmin Connect IQ development and evidence-based hocke
 
 ## Included skills
 
-| Skill | Purpose |
-|---|---|
-| [Hockey Evidence](skills/hockey-evidence/README.md) | Research ice-hockey science, audit ShiftSense/Garmin claims, and design traceable wearable-data algorithms. |
-| [Garmin Connect IQ](skills/garmin-connect-iq/README.md) | Develop and debug Monkey C applications using a searchable Toybox API reference. |
+| Skill | Purpose | Status |
+|---|---|---|
+| [Hockey Evidence](skills/hockey-evidence/README.md) | Research ice-hockey science, audit ShiftSense/Garmin claims, and design traceable wearable-data algorithms. | Available |
+| [Garmin Connect IQ](skills/garmin-connect-iq/README.md) | Develop and debug Monkey C applications using a searchable Toybox API reference. | Available |
+| [Hockey IQ Video Analysis + Practice Design](docs/designs/hockey-iq-skills-design.md) | Analyze five-player support behavior in video and turn tactical findings into representative practice activities. | Approved design; implementation pending |
+
+## In development: support-player-first Hockey IQ
+
+The next two coordinated skills focus on advanced and elite players and competitive juniors:
+
+- `hockey-iq-video-analysis` will analyze authorized YouTube and local-video plays, beginning with zone entries, turnovers, and forecheck recoveries.
+- `hockey-iq-practice-design` will convert those findings into representative drills and small-area games.
+
+The design treats all five skaters as a connected offensive unit. Its central question is how players without the puck should move to become passing options, displace defenders, attack opening ice, create high-danger opportunities, and preserve transition balance. It also covers modern defense activation, shot angle and distance, pre-shot lateral movement, and Golden Line/Royal Road concepts with explicit evidence and uncertainty labels.
+
+Read the complete [Hockey IQ skills design specification](docs/designs/hockey-iq-skills-design.md).
+
+> The Hockey IQ skills are currently a reviewed design proposal, not installable skills. Implementation and validation are the next stage.
 
 ## Quick start
 
@@ -35,6 +49,7 @@ Garmin API documentation is not redistributed in this repository. Garmin owns it
 - [Installation](docs/installation.md)
 - [Testing](docs/testing.md)
 - [Publishing](docs/publishing.md)
+- [Hockey IQ skills design](docs/designs/hockey-iq-skills-design.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security](SECURITY.md)
 
