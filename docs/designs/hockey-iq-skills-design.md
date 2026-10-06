@@ -461,8 +461,8 @@ Included:
 - zone entries, turnovers, and forecheck recoveries;
 - system-neutral analysis plus optional team profiles;
 - structured findings and representative practice design;
-- annotated-frame or rink-diagram instructions; and
-- evidence and uncertainty labels.
+- annotated-frame or rink-diagram instructions;
+- evidence and uncertainty labels;
 - a versioned public-source registry and reviewed seed corpus;
 - high-IQ exemplar records with outcome-independent evaluation; and
 - reproducible corpus discovery, review, and validation workflows.
@@ -473,8 +473,8 @@ Deferred:
 - dependable jersey recognition across broadcast cuts;
 - full spatial-control surfaces from monocular video;
 - automated tactical grading without coach confirmation;
-- proprietary expected-goals replication without licensed data; and
-- real-time bench analysis.
+- proprietary expected-goals replication without licensed data;
+- real-time bench analysis;
 - a claim of exhaustive coverage of every public source; and
 - redistribution of public-but-copyrighted or license-restricted material.
 
