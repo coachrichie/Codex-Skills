@@ -430,7 +430,38 @@ Every evidence-assisted recommendation states:
 
 The skill reports a precise scoring probability only when the underlying dataset, variables, model, population, and validation justify that precision.
 
-## 19. Corpus Updates, Rights, and Validation
+## 19. Scoring-Probability Outputs
+
+Each analyzed decision point may show two primary percentages:
+
+- **Goal probability (`xG`):** the estimated probability that a specified shot becomes a goal.
+- **High-danger creation probability (`HDCP`):** the estimated probability that a specified movement or puck continuation produces a defined high-danger shot within a declared time horizon.
+
+Alternative continuations may also show:
+
+- **Completion probability:** the likelihood that the pass, carry, recovery, or coordinated continuation succeeds.
+- **Sequence goal probability:** the estimated probability that the entire continuation produces a goal within the declared horizon.
+
+Goal probability and high-danger creation probability must remain separate. The skill must not present `HDCP` as `xG`, combine them into one unlabeled score, or imply that a high-danger chance has already occurred when it is only a counterfactual outcome.
+
+Each estimate includes:
+
+- an uncertainty interval or calibrated probability band;
+- model name, version, and training-data population;
+- comparable-play count and similarity criteria when retrieval contributes to the estimate;
+- prediction horizon and event definition;
+- relevant inputs, including available shot distance, angle, traffic, lateral movement, rebound state, pressure, strength state, and goaltender displacement;
+- calibration and validation status;
+- an out-of-distribution warning when the analyzed situation is poorly represented; and
+- `insufficient evidence` when the available data cannot support a defensible estimate.
+
+Historical shot estimates from validated models are labeled separately from experimental counterfactual estimates. Counterfactual option estimates must model the event chain explicitly rather than applying a shot-conversion rate directly to a movement that has not yet produced a shot.
+
+The video overlay may display compact ranges at the decision timestamp. The accompanying report explains why support-player routes, defender displacement, and puck movement raise or lower the estimates. Exact point values are displayed only when calibration, data density, and model validation justify that precision.
+
+Probability-model evaluation covers discrimination, calibration, reliability by probability band, temporal or competition-level holdout performance, and error by tactical context. Model weights remain experimental until validated against an appropriate independent dataset.
+
+## 20. Corpus Updates, Rights, and Validation
 
 Discovery runs search registered scholarly indexes, open-data repositories, federation resources, and public-data endpoints. Each run records queries, additions, changed sources, failures, and coverage gaps. New or changed sources enter a review queue before influencing recommendations.
 
@@ -451,7 +482,7 @@ Corpus validation covers:
 
 Version 1 ships with a reviewed seed corpus and update machinery. Basic clip analysis remains usable when the wider corpus is unavailable.
 
-## 20. Version 1 Scope Boundary
+## 21. Version 1 Scope Boundary
 
 Included:
 
@@ -464,8 +495,10 @@ Included:
 - annotated-frame or rink-diagram instructions;
 - evidence and uncertainty labels;
 - a versioned public-source registry and reviewed seed corpus;
-- high-IQ exemplar records with outcome-independent evaluation; and
-- reproducible corpus discovery, review, and validation workflows.
+- high-IQ exemplar records with outcome-independent evaluation;
+- reproducible corpus discovery, review, and validation workflows;
+- goal-probability estimates for supported shot situations; and
+- high-danger creation estimates for supported tactical continuations.
 
 Deferred:
 
@@ -475,10 +508,12 @@ Deferred:
 - automated tactical grading without coach confirmation;
 - proprietary expected-goals replication without licensed data;
 - real-time bench analysis;
-- a claim of exhaustive coverage of every public source; and
-- redistribution of public-but-copyrighted or license-restricted material.
+- a claim of exhaustive coverage of every public source;
+- redistribution of public-but-copyrighted or license-restricted material;
+- unsupported scoring percentages or unlabeled mixing of historical and counterfactual estimates; and
+- production claims for uncalibrated or externally unvalidated models.
 
-## 21. Planned Deliverables
+## 22. Planned Deliverables
 
 The implementation plan should cover, in order:
 
@@ -487,9 +522,10 @@ The implementation plan should cover, in order:
 3. Reviewed seed corpus and high-IQ exemplar fixtures.
 4. Shared tactical schema and validators.
 5. Corpus adapters, normalization, retrieval, and validation tools.
-6. `hockey-iq-video-analysis` instructions, references, scripts, and evaluations.
-7. Baseline evaluation fixtures for `hockey-iq-practice-design`.
-8. `hockey-iq-practice-design` instructions, references, scripts, and evaluations.
-9. Cross-skill and corpus-assisted integration fixtures and validation.
-10. Installation into the user's Codex skills directory after all validation passes.
+6. Goal-probability and high-danger-creation model contracts, baselines, calibration reports, and evaluation fixtures.
+7. `hockey-iq-video-analysis` instructions, references, scripts, and evaluations.
+8. Baseline evaluation fixtures for `hockey-iq-practice-design`.
+9. `hockey-iq-practice-design` instructions, references, scripts, and evaluations.
+10. Cross-skill and corpus-assisted integration fixtures and validation.
+11. Installation into the user's Codex skills directory after all validation passes.
 

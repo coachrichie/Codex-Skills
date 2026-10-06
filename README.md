@@ -21,6 +21,8 @@ The design treats all five skaters as a connected offensive unit. Its central qu
 
 Its evidence layer is a federated, versioned corpus of open play and tracking datasets, scientific research, attributed coaching knowledge, and authorized public-video exemplars. Sources retain license, provenance, definitions, limitations, and update history; public availability is not treated as permission to redistribute copyrighted material.
 
+Video outputs will distinguish shot goal probability (xG) from the probability that a proposed continuation creates a high-danger chance. Estimates will include uncertainty, model provenance, data coverage, and calibration status; unsupported situations return `insufficient evidence` rather than false precision.
+
 Read the complete [Hockey IQ skills design specification](docs/designs/hockey-iq-skills-design.md).
 
 > The Hockey IQ skills are currently a reviewed design proposal, not installable skills. Implementation and validation are the next stage.
