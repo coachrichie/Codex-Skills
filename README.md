@@ -19,6 +19,8 @@ The next two coordinated skills focus on advanced and elite players and competit
 
 The design treats all five skaters as a connected offensive unit. Its central question is how players without the puck should move to become passing options, displace defenders, attack opening ice, create high-danger opportunities, and preserve transition balance. It also covers modern defense activation, shot angle and distance, pre-shot lateral movement, and Golden Line/Royal Road concepts with explicit evidence and uncertainty labels.
 
+Its evidence layer is a federated, versioned corpus of open play and tracking datasets, scientific research, attributed coaching knowledge, and authorized public-video exemplars. Sources retain license, provenance, definitions, limitations, and update history; public availability is not treated as permission to redistribute copyrighted material.
+
 Read the complete [Hockey IQ skills design specification](docs/designs/hockey-iq-skills-design.md).
 
 > The Hockey IQ skills are currently a reviewed design proposal, not installable skills. Implementation and validation are the next stage.

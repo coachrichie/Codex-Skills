@@ -1,7 +1,7 @@
 # Hockey IQ Skills — Design Specification
 
 Date: 2026-10-06  
-Status: Approved design; awaiting implementation-plan approval
+Status: Approved design, including federated public-data corpus; awaiting implementation-plan approval
 
 ## 1. Purpose
 
@@ -351,7 +351,107 @@ Verify that a video finding passes through the shared schema into practice desig
 - uncertainty; or
 - the intended transfer measure.
 
-## 16. Version 1 Scope Boundary
+## 16. Federated Hockey-Intelligence Corpus
+
+The video-analysis skill uses a separate, versioned data layer rather than embedding an unverifiable claim that it contains every public hockey datum. The corpus is designed for systematic discovery, traceable coverage, and recurring updates.
+
+It contains four source classes:
+
+- **Structured play data:** events, entries, passes, recoveries, turnovers, shots, shifts, and available player or puck tracking coordinates.
+- **Scientific evidence:** peer-reviewed studies and theses covering tactical behavior, decision-making, perception, shot quality, spatial structure, and video analysis.
+- **Coaching knowledge:** federation resources, coaching presentations, tactical articles, and public expert analysis.
+- **Video exemplars:** authorized public clips analyzed on demand and stored as source metadata, timestamps, derived observations, and links rather than copied footage unless redistribution is explicitly licensed.
+
+Every registered source includes:
+
+- stable identifier and URL;
+- publisher, authorship, and publication date;
+- access and license status;
+- retrieval date, version, and checksum when available;
+- sport, league, level, strength state, and tactical context;
+- available fields or claims;
+- review depth and evidence class;
+- known limitations, bias, and missing information; and
+- redistribution and derived-output permissions.
+
+Source-specific adapters preserve original definitions. A `Play`, `Zone Entry`, `High-Danger Chance`, or similar field from one provider must not silently become equivalent to another provider's term. Normalized records retain both the source definition and the mapped tactical concept.
+
+Initial structured-data sources should include openly available datasets relevant to team coordination, zone entries, turnovers, forechecks, off-puck movement, and scoring opportunities. The Big Data Cup datasets are a high-priority seed because available editions contain event and tracking fields directly relevant to these questions. Inclusion remains conditional on the license and redistribution terms of each edition.
+
+## 17. High-IQ Play Library
+
+A high-IQ play is defined by the quality of the read, support behavior, and feasible alternatives—not merely by a highlight, goal, assist, or successful outcome.
+
+Each exemplar contains:
+
+- situation: zone, strength state, score and time context, possession phase, and team structure;
+- decision window before the visible result;
+- five-player support map and defensive shape;
+- open, opening, occupied, and deliberately cleared ice;
+- routes that create reachable passing options;
+- routes that displace or pin defenders without receiving the puck;
+- defense activation and the compensating rotation;
+- feasible alternative continuations;
+- scoring-opportunity mechanism;
+- observed outcome stored separately from decision quality;
+- counterfactual continuation and expected structural change; and
+- confidence, system assumptions, source, and analyst provenance.
+
+An exemplar is admitted through at least one documented path:
+
+- **Data-supported:** structured event or tracking data supports the spatial and temporal interpretation.
+- **Expert-supported:** a credible coach or analyst explains the play and receives explicit attribution.
+- **Independently reviewed:** an original analysis passes the maintained tactical-review rubric.
+
+The library deliberately includes productive failures, where a sound read fails through execution, and misleading successes, where weak structure still produces a favorable outcome.
+
+## 18. Corpus Retrieval and Use
+
+Comparable evidence is retrieved using tactical features rather than player fame or outcome:
+
+- possession phase;
+- zone and puck location;
+- five-player attacking shape;
+- defensive layers and numerical relationships;
+- pressure and available time;
+- support roles and route timing;
+- team-system profile;
+- scoring-opportunity mechanism; and
+- transition-risk profile.
+
+Retrieved evidence supports pattern recognition, option generation, and confidence calibration. It never overrides visible constraints in the analyzed video.
+
+Every evidence-assisted recommendation states:
+
+- which datasets, studies, coaching sources, or exemplars influenced it;
+- why those sources were considered comparable;
+- material differences from the current play; and
+- whether the evidence supports a principle, a probability estimate, or only an illustrative analogy.
+
+The skill reports a precise scoring probability only when the underlying dataset, variables, model, population, and validation justify that precision.
+
+## 19. Corpus Updates, Rights, and Validation
+
+Discovery runs search registered scholarly indexes, open-data repositories, federation resources, and public-data endpoints. Each run records queries, additions, changed sources, failures, and coverage gaps. New or changed sources enter a review queue before influencing recommendations.
+
+Public availability is not treated as permission to redistribute. The repository may contain openly licensed data, factual metadata, source links, retrieval instructions, schemas, checksums, original derived annotations, and evaluation fixtures. It must not contain copied copyrighted videos, paywalled papers, proprietary tracking feeds, or restricted datasets.
+
+Removed or inaccessible sources remain in provenance history but are marked unavailable. Derived findings retain the exact source version used. Duplicate datasets and mirrors are linked rather than double-counted.
+
+Corpus validation covers:
+
+- source discovery and deduplication;
+- normalization without changing source definitions;
+- license and provenance completeness;
+- reproducible retrieval;
+- tactical-example quality and outcome-bias resistance;
+- comparability of retrieved examples;
+- conflicting or incomplete sources; and
+- graceful operation without network or source availability.
+
+Version 1 ships with a reviewed seed corpus and update machinery. Basic clip analysis remains usable when the wider corpus is unavailable.
+
+## 20. Version 1 Scope Boundary
 
 Included:
 
@@ -361,8 +461,11 @@ Included:
 - zone entries, turnovers, and forecheck recoveries;
 - system-neutral analysis plus optional team profiles;
 - structured findings and representative practice design;
-- annotated-frame or rink-diagram instructions; and
-- evidence and uncertainty labels.
+- annotated-frame or rink-diagram instructions;
+- evidence and uncertainty labels;
+- a versioned public-source registry and reviewed seed corpus;
+- high-IQ exemplar records with outcome-independent evaluation; and
+- reproducible corpus discovery, review, and validation workflows.
 
 Deferred:
 
@@ -370,19 +473,23 @@ Deferred:
 - dependable jersey recognition across broadcast cuts;
 - full spatial-control surfaces from monocular video;
 - automated tactical grading without coach confirmation;
-- proprietary expected-goals replication without licensed data; and
-- real-time bench analysis.
+- proprietary expected-goals replication without licensed data;
+- real-time bench analysis;
+- a claim of exhaustive coverage of every public source; and
+- redistribution of public-but-copyrighted or license-restricted material.
 
-## 17. Planned Deliverables
+## 21. Planned Deliverables
 
 The implementation plan should cover, in order:
 
 1. Baseline evaluation fixtures for `hockey-iq-video-analysis`.
-2. Shared schema and validator.
-3. `hockey-iq-video-analysis` instructions, references, scripts, and evaluations.
-4. Baseline evaluation fixtures for `hockey-iq-practice-design`.
-5. `hockey-iq-practice-design` instructions, references, scripts, and evaluations.
-6. Cross-skill integration fixtures and validation.
-7. Installation into the user's Codex skills directory after all validation passes.
-
+2. Public-source registry, source contract, license policy, and discovery log.
+3. Reviewed seed corpus and high-IQ exemplar fixtures.
+4. Shared tactical schema and validators.
+5. Corpus adapters, normalization, retrieval, and validation tools.
+6. `hockey-iq-video-analysis` instructions, references, scripts, and evaluations.
+7. Baseline evaluation fixtures for `hockey-iq-practice-design`.
+8. `hockey-iq-practice-design` instructions, references, scripts, and evaluations.
+9. Cross-skill and corpus-assisted integration fixtures and validation.
+10. Installation into the user's Codex skills directory after all validation passes.
 
