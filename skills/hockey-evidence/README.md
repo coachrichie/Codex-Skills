@@ -19,6 +19,10 @@ Records with `abstract_only` or `bibliographic_only` status are not equivalent t
 
 Algorithm proposals remain experimental until tested against representative criterion measurements. Wrist-worn Garmin data must not be treated as interchangeable with sensors at other body locations without validation.
 
+For skating distance and profile/anthropometry questions, read [profile-distance](references/profile-distance.md).
+It distinguishes the fixed release baseline from an experimental height-only prior, prohibits weight/BMI distance
+multipliers, and defines held-out activation criteria. Neither model has validated Garmin wrist accuracy.
+
 ## Structure and testing
 
 - `data/`: study records, searches, and topic indexes
