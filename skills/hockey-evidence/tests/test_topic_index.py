@@ -5,6 +5,7 @@ ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from build_topic_index import build_topic_index
+import build_topic_index as topic_index_module
 
 
 def record(study_id, title, sports, text):
@@ -37,3 +38,19 @@ def test_topic_matching_does_not_change_sport_context_or_status():
     original = (rec["sport_context"], rec["review_status"])
     build_topic_index([rec])
     assert (rec["sport_context"], rec["review_status"]) == original
+
+
+def test_rendering_retains_statuses_sorted_ids_and_rejects_invalid_records():
+    render = getattr(topic_index_module, "render_topic_index", None)
+    assert callable(render), "Rendering needs a reusable deterministic entry point"
+    records = [
+        record("z", "Sprint", ["ice_hockey"], "acceleration"),
+        record("a", "Sprint", ["ice_hockey"], "acceleration"),
+        {"identifiers": {"study_id": "invalid"}, "review_status": "bad"},
+    ]
+    records[0]["review_status"] = "full_text_reviewed"
+    assert render(records) == (
+        "# Hockey Evidence Topic Index\n\n## shift_profile\n\n"
+        "- `a` — review_status: `abstract_only`\n"
+        "- `z` — review_status: `full_text_reviewed`\n"
+    )

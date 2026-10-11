@@ -15,6 +15,6 @@ def test_published_skills_pass_integration_checks():
 
     assert results["hockey_validator"] is True
     assert results["garmin_validator"] is True
-    assert results["hockey_tests"] == 54
+    assert results["hockey_tests"] == 58
     assert results["corpus"] == {"valid": 9, "invalid": 0}
     assert results["smoke"]["passed"] is True

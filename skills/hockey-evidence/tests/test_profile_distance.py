@@ -10,6 +10,7 @@ import pytest
 ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from build_topic_index import build_topic_index
+import build_topic_index as topic_index_module
 from validate_corpus import validate_study
 
 
@@ -136,13 +137,31 @@ def test_full_text_upgrades_preserve_seed_provenance_and_do_not_transfer_wrist_a
     assert skating["transferability"]["sensor_compatibility"] == "low"
 
 
-def test_distance_topic_retrieves_anthropometry_records_and_both_indexes_agree():
+@pytest.mark.parametrize("study_id,source,access_status", [
+    ("bandy-pojskic-2025", "DiVA conference repository copy", "failed"),
+    ("bandy-pojskic-2025", "ResearchGate deposit locator", "unverified"),
+    ("bandy-vanden-tillaar-2025", "DiVA institutional PDF locator", "failed"),
+])
+def test_failed_or_unverified_locators_do_not_claim_substantive_source_fields(study_id, source, access_status):
+    provenance = next(p for p in records()[study_id]["provenance"] if p["source"] == source)
+    assert provenance["fields"] == []
+    assert provenance["purpose"] == "locator_or_access_attempt"
+    assert provenance["access_status"] == access_status
+    assert provenance["access_failure"]
+    assert provenance["review_scope"]
+
+
+def test_distance_topic_retrieves_anthropometry_records_and_both_indexes_match_fresh_rendering():
     corpus = records()
     index = build_topic_index(list(corpus.values()))
     assert {"bandy-pojskic-2025", "bandy-vanden-tillaar-2025", "hockey-budarick-2020", "inline-speed-wu-2025"} <= set(index.get("distance", []))
-    hyphen = (ROOT / "data/topic-index.md").read_text(encoding="utf-8")
-    assert hyphen == (ROOT / "data/topic_index.md").read_text(encoding="utf-8")
-    distance_section = hyphen.split("## distance\n", 1)[1].split("## ", 1)[0]
+    render = getattr(topic_index_module, "render_topic_index", None)
+    assert callable(render), "The CLI's deterministic rendering must be testable independently of committed indexes"
+    fresh = render(list(corpus.values()))
+    assert fresh == render(list(reversed(list(corpus.values()))))
+    for filename in ("topic-index.md", "topic_index.md"):
+        assert (ROOT / "data" / filename).read_text(encoding="utf-8") == fresh
+    distance_section = fresh.split("## distance\n", 1)[1].split("## ", 1)[0]
     assert all(f"`{study_id}`" in distance_section for study_id in index["distance"])
 
 
