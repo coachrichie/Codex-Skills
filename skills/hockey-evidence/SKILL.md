@@ -16,6 +16,11 @@ For algorithm design, use `scripts/design_algorithm.py::render_algorithm_proposa
 criterion-measure validation is completed; the renderer must retain study IDs, quality gates, free parameters, and
 predefined error metrics. `run_skill_smoke_suite` provides a deterministic end-to-end acceptance check.
 
+For distance-per-push, anthropometry, height, weight/BMI, or skating-distance requests, first read
+[profile-distance](references/profile-distance.md), then [algorithm-design](references/algorithm-design.md)
+to render the proposal. Keep the fixed release baseline and the bounded height-only experiment distinct;
+the distance reference supplies the evidence limits and activation gate.
+
 Evidence priority is ice hockey, then inline hockey and long-track speed skating, then other gliding sports, and only justified indirect evidence from other intermittent team sports. Field hockey is not treated as equivalent merely because it is hockey.
 
 Do not copy copyrighted full text, infer missing study fields, provide diagnoses, or present unvalidated production weights as established science. Abstract-only and bibliographic-only records must retain their restricted status. Distinguish findings from transfer assumptions and ShiftSense/Garmin model choices.

@@ -37,12 +37,8 @@ def build_topic_index(records: list[dict]) -> dict[str, list[str]]:
                 index[topic].append(str(study_id))
     return {topic: sorted(set(ids)) for topic, ids in index.items() if ids}
 
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--input", required=True, type=Path)
-    parser.add_argument("--output", required=True, type=Path)
-    args = parser.parse_args()
-    records = [json.loads(line) for line in args.input.read_text(encoding="utf-8").splitlines() if line.strip()]
+def render_topic_index(records: list[dict]) -> str:
+    """Render the same complete Markdown used by the CLI from valid corpus records."""
     index = build_topic_index(records)
     statuses = {
         str(_study_id(record)): record.get("review_status")
@@ -54,6 +50,15 @@ def main() -> int:
             f"- `{study_id}` — review_status: `{statuses.get(study_id, 'unknown')}`"
             for study_id in ids
         ] + [""]
-    args.output.write_text("\n".join(lines), encoding="utf-8")
+    return "\n".join(lines)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input", required=True, type=Path)
+    parser.add_argument("--output", required=True, type=Path)
+    args = parser.parse_args()
+    records = [json.loads(line) for line in args.input.read_text(encoding="utf-8").splitlines() if line.strip()]
+    args.output.write_text(render_topic_index(records), encoding="utf-8")
     return 0
 if __name__ == "__main__": raise SystemExit(main())
